@@ -26,12 +26,12 @@ namespace RAA_Lvl2_Skills_01
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
-            // put any code needed for the form here
+            // step 1: put any code needed for the form here
 
-            // open form
+            // step 2: open form
             MyForm currentForm = new MyForm()
             {
-                Width = 800,
+                Width = 500,
                 Height = 450,
                 WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
                 Topmost = true,
@@ -39,7 +39,26 @@ namespace RAA_Lvl2_Skills_01
 
             currentForm.ShowDialog();
 
-            // get form data and do something
+            // step 3: get form data and do something
+            if(currentForm.DialogResult == false)
+            {
+                // if cancel end the addin
+                TaskDialog.Show("My Form", "You clicked Cancel");
+                return Result.Cancelled;
+            }
+
+            // do stuff now
+            string textBoxResult = currentForm.GetTextBoxValue();
+
+            bool checkBoxValue = currentForm.GetCheckBox1Value();
+
+            string radioButtonValue = currentForm.GetGroup1();
+
+            TaskDialog.Show("My Form", "You clicked OK" +
+                "\nTextBox: " + textBoxResult +
+                "\nCheckBox: " + checkBoxValue.ToString() +
+                "\nRadioButton: " + radioButtonValue
+                );
 
             return Result.Succeeded;
         }
